@@ -16,19 +16,23 @@ router.get("/", function(req, res) {
   });
 });
 
-router.post("/api/burgers", function(req, res) {
-    console.log(`delicious burgers bby`,req.body)
-  burger.create([
-    "burger_name"
-  ], [
-    req.body.burger_name
-  ], function(result) {
-    // Send back the ID of the new quote
-    res.json({ id: result.insertId });
-  });
+router.post("/api/burger", function(req, res) {
+  const { burger_name } = req.body
+    burger.create(req.body.burger_name, data => {
+      console.log(data)
+      res.json(data)
+    })
+  // burger.create([
+  //   "burger_name"
+  // ], [
+  //   req.body.burger_name
+  // ], function(result) {
+  //   // Send back the ID of the new quote
+  //   res.json({ id: result.insertId });
+  // });
 });
 
-router.put("/api/burgers/:id", function(req, res) {
+router.put("/api/burger/:id", function(req, res) {
   var condition = "id = " + req.params.id;
 
   console.log("condition", condition);
@@ -45,7 +49,7 @@ router.put("/api/burgers/:id", function(req, res) {
   });
 });
 
-router.delete("/api/burgers/:id", function(req, res) {
+router.delete("/api/burger/:id", function(req, res) {
   var condition = "id = " + req.params.id;
 
   burger.delete(condition, function(result) {
